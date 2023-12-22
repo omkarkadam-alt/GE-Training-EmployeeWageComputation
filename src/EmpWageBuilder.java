@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class EmpWageBuilder implements InterfaceComputeEmpWage{
 
@@ -8,9 +8,11 @@ public class EmpWageBuilder implements InterfaceComputeEmpWage{
     public static final int PART_TIME_WORKING_HOURS = 4;
     
     private ArrayList<CompanyEmpWage> companies;
+    private Map<String, CompanyEmpWage> companyNameToCompanyMap;
 
     EmpWageBuilder(){
         companies = new ArrayList<CompanyEmpWage>();
+        companyNameToCompanyMap = new HashMap<>();
     }
 
     public int getWorkingHoursADay(int attendance, int totalEmpHours, int maxEmpHoursPerMonth)
@@ -64,12 +66,23 @@ public class EmpWageBuilder implements InterfaceComputeEmpWage{
             totalEmpHours += empHours;
             currDay++;
         }
+
+        companyNameToCompanyMap.put(company.companyName, company);
     }
 
     public void addCompanyEmpWage(String companyName, int empRatePerHour, int maxEmpHoursPerMonth, int maxWorkingDays){
         
         CompanyEmpWage newCompanyEmpWage = new CompanyEmpWage(companyName, empRatePerHour, maxEmpHoursPerMonth, maxWorkingDays);
         companies.add(newCompanyEmpWage);
+    }
+
+    public void computeEmpWage(String companyName){
+        System.out.println();
+        if(companyNameToCompanyMap.containsKey(companyName) == false){
+            System.out.println("Company Not Found !!");
+        }else{
+            System.out.println(companyNameToCompanyMap.get(companyName));
+        }
     }
 
     public void computeEmpWage(){
@@ -83,9 +96,6 @@ public class EmpWageBuilder implements InterfaceComputeEmpWage{
 
         for(int i = 0; i < totalCompanies; i++){
             calculateWage(companies.get(i));
-            System.out.println();
-            System.out.println(companies.get(i));
         }
     }
-    
 }
