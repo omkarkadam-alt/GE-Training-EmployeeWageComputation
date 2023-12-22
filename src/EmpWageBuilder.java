@@ -6,8 +6,6 @@ public class EmpWageBuilder implements InterfaceComputeEmpWage{
     public static final int IS_FULL_TIME = 2;
     public static final int FULL_TIME_WORKING_HOURS = 8;
     public static final int PART_TIME_WORKING_HOURS = 4;
-
-    public static final int MAXIMUM_COMPANIES = 5;
     
     private ArrayList<CompanyEmpWage> companies;
 
@@ -59,6 +57,9 @@ public class EmpWageBuilder implements InterfaceComputeEmpWage{
             }
 
             empWage = company.empRatePerHour * empHours;
+            
+            company.dailyWages.add(empWage);
+
             company.totalEmpWage += empWage;
             totalEmpHours += empHours;
             currDay++;
@@ -82,6 +83,7 @@ public class EmpWageBuilder implements InterfaceComputeEmpWage{
 
         for(int i = 0; i < totalCompanies; i++){
             calculateWage(companies.get(i));
+            System.out.println();
             System.out.println(companies.get(i));
         }
     }
