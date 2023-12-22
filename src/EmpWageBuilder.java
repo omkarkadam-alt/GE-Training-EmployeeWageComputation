@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class EmpWageBuilder implements InterfaceComputeEmpWage{
 
     public static final int IS_PART_TIME = 1;
@@ -7,11 +9,10 @@ public class EmpWageBuilder implements InterfaceComputeEmpWage{
 
     public static final int MAXIMUM_COMPANIES = 5;
     
-    private CompanyEmpWage[] companies;
-    int totalCompanies = 0;
+    private ArrayList<CompanyEmpWage> companies;
 
     EmpWageBuilder(){
-        companies = new CompanyEmpWage[MAXIMUM_COMPANIES];
+        companies = new ArrayList<CompanyEmpWage>();
     }
 
     public int getWorkingHoursADay(int attendance, int totalEmpHours, int maxEmpHoursPerMonth)
@@ -66,15 +67,13 @@ public class EmpWageBuilder implements InterfaceComputeEmpWage{
 
     public void addCompanyEmpWage(String companyName, int empRatePerHour, int maxEmpHoursPerMonth, int maxWorkingDays){
         
-        if(totalCompanies == MAXIMUM_COMPANIES){
-            System.out.println("List already full !!.");
-            System.out.println("Cannot add the company");
-            return;
-        }
-        companies[totalCompanies++] = new CompanyEmpWage(companyName, empRatePerHour, maxEmpHoursPerMonth, maxWorkingDays);
+        CompanyEmpWage newCompanyEmpWage = new CompanyEmpWage(companyName, empRatePerHour, maxEmpHoursPerMonth, maxWorkingDays);
+        companies.add(newCompanyEmpWage);
     }
 
     public void computeEmpWage(){
+
+        int totalCompanies = companies.size();
 
         if(totalCompanies == 0){
             System.out.println("No Companies Found !!");
@@ -82,8 +81,8 @@ public class EmpWageBuilder implements InterfaceComputeEmpWage{
         }
 
         for(int i = 0; i < totalCompanies; i++){
-            calculateWage(companies[i]);
-            System.out.println(companies[i]);
+            calculateWage(companies.get(i));
+            System.out.println(companies.get(i));
         }
     }
     
