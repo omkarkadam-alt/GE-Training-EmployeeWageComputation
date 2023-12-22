@@ -1,4 +1,4 @@
-public class EmpWageBuilder {
+public class EmpWageBuilder implements InterfaceComputeEmpWage{
 
     public static final int IS_PART_TIME = 1;
     public static final int IS_FULL_TIME = 2;
@@ -14,7 +14,7 @@ public class EmpWageBuilder {
         companies = new CompanyEmpWage[MAXIMUM_COMPANIES];
     }
 
-    int getWorkingHoursADay(int attendance, int totalEmpHours, int maxEmpHoursPerMonth)
+    public int getWorkingHoursADay(int attendance, int totalEmpHours, int maxEmpHoursPerMonth)
     {
         int empHours = 0;
 
@@ -64,7 +64,7 @@ public class EmpWageBuilder {
         }
     }
 
-    void addCompanyEmpWage(String companyName, int empRatePerHour, int maxEmpHoursPerMonth, int maxWorkingDays){
+    public void addCompanyEmpWage(String companyName, int empRatePerHour, int maxEmpHoursPerMonth, int maxWorkingDays){
         
         if(totalCompanies == MAXIMUM_COMPANIES){
             System.out.println("List already full !!.");
@@ -74,7 +74,7 @@ public class EmpWageBuilder {
         companies[totalCompanies++] = new CompanyEmpWage(companyName, empRatePerHour, maxEmpHoursPerMonth, maxWorkingDays);
     }
 
-    void computeEmpWage(){
+    public void computeEmpWage(){
 
         if(totalCompanies == 0){
             System.out.println("No Companies Found !!");
